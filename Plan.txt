@@ -1,0 +1,387 @@
+Once Kiro has finished generating the Current State Specs, Steering Documents, and Target Architecture, the next prompt should not ask it to write code. Instead, ask it to become the migration architect and produce a complete migration plan.
+
+For an enterprise ETL migration like yours, I would use something like the following.
+
+Kiro Migration Planning Prompt
+
+Role
+
+You are the Principal Enterprise Architect responsible for modernizing a mission-critical Spring Batch ETL system.
+
+You have already analyzed the project and generated:
+
+* Current State Specifications
+* Technical Specifications
+* Steering Documents
+* Architecture Decision Records (ADR)
+* Target Architecture
+* Dependency Analysis
+* Risk Analysis
+* Performance Analysis
+
+These documents are the single source of truth.
+
+Do not re-analyze the project unless additional verification is required.
+
+⸻
+
+Objective
+
+Create a complete migration plan for converting the existing single-threaded Spring Batch ETL application into a partition-based parallel processing architecture.
+
+The migration must preserve 100% of existing business functionality.
+
+This phase is planning only.
+
+Do NOT generate implementation code.
+
+⸻
+
+Planning Principles
+
+The migration plan must:
+
+* Preserve business logic exactly.
+* Preserve restartability.
+* Preserve fault tolerance.
+* Preserve transaction semantics.
+* Preserve logging and auditing.
+* Preserve file processing behaviour.
+* Preserve validation behaviour.
+* Preserve error handling.
+* Preserve job parameters.
+* Preserve ExecutionContext behaviour.
+* Preserve output compatibility.
+
+Only infrastructure should change.
+
+⸻
+
+Read Before Planning
+
+Use all previously generated documentation.
+
+Current State
+
+* Architecture Specification
+* Job Inventory
+* Step Inventory
+* Reader Analysis
+* Processor Analysis
+* Writer Analysis
+* Listener Analysis
+* Tasklet Analysis
+* Service Analysis
+* Database Analysis
+* SQL Analysis
+* Performance Analysis
+* Thread Safety Analysis
+* Risk Analysis
+
+Target State
+
+* Target Architecture
+* Steering Documents
+* ADRs
+* Coding Standards
+
+If conflicts exist, identify them.
+
+Do not guess.
+
+⸻
+
+Produce a Migration Roadmap
+
+Divide the migration into logical phases.
+
+For each phase provide:
+
+* Goal
+* Expected Outcome
+* Dependencies
+* Risks
+* Estimated Complexity
+* Validation Criteria
+
+⸻
+
+Produce Job-Level Migration Plan
+
+For every Spring Batch Job provide:
+
+Current State
+
+Target State
+
+Migration Complexity
+
+Estimated Risk
+
+Recommended Order
+
+Business Criticality
+
+Dependencies
+
+Rollback Strategy
+
+Validation Strategy
+
+⸻
+
+Produce Step-Level Migration Plan
+
+For every Step provide:
+
+Current Design
+
+Target Design
+
+Partition Candidate
+
+Parallel Processing Candidate
+
+ExecutionContext Changes
+
+JobParameter Changes
+
+Bean Scope Changes
+
+Reader Changes
+
+Processor Changes
+
+Writer Changes
+
+Listener Changes
+
+Tasklet Changes
+
+Transaction Changes
+
+Database Changes
+
+Cache Changes
+
+Performance Improvements
+
+Testing Strategy
+
+Rollback Strategy
+
+Definition of Done
+
+⸻
+
+Thread Safety Planning
+
+For every component identify:
+
+Mutable State
+
+Shared Resources
+
+Singleton Risks
+
+Static Variables
+
+ThreadLocal Usage
+
+Cache Safety
+
+Synchronization Needs
+
+Race Conditions
+
+Deadlock Risks
+
+Recommended Solution
+
+⸻
+
+Partition Planning
+
+For each partitionable step provide:
+
+Partition Key
+
+Partitioning Strategy
+
+Grid Size Recommendation
+
+Chunk Size Recommendation
+
+Commit Interval Recommendation
+
+Thread Count Recommendation
+
+Reader Strategy
+
+Writer Strategy
+
+Recovery Strategy
+
+Failure Handling
+
+Performance Expectations
+
+Memory Impact
+
+⸻
+
+Database Planning
+
+Review every database interaction.
+
+Identify:
+
+Connection Pool Usage
+
+JPA Behaviour
+
+Batch Operations
+
+Transaction Boundaries
+
+Indexes
+
+Locking
+
+Isolation Levels
+
+Potential Deadlocks
+
+Required Optimizations
+
+⸻
+
+Dependency Planning
+
+Generate dependency graphs for:
+
+Jobs
+
+Steps
+
+Services
+
+Repositories
+
+Configuration
+
+ExecutionContext
+
+Shared Objects
+
+Caches
+
+⸻
+
+Risk Register
+
+Create a migration risk register.
+
+For every risk provide:
+
+Description
+
+Probability
+
+Impact
+
+Mitigation
+
+Fallback Plan
+
+Owner
+
+⸻
+
+Testing Plan
+
+Create a complete testing strategy.
+
+Include:
+
+Unit Tests
+
+Integration Tests
+
+Restart Tests
+
+Skip Tests
+
+Retry Tests
+
+Concurrency Tests
+
+Partition Tests
+
+Performance Tests
+
+Regression Tests
+
+Large File Tests
+
+Database Validation
+
+Data Reconciliation
+
+⸻
+
+Deliverables
+
+Generate the following markdown documents:
+
+01-migration-roadmap.md
+
+02-job-migration-plan.md
+
+03-step-migration-plan.md
+
+04-thread-safety-plan.md
+
+05-partition-strategy.md
+
+06-performance-plan.md
+
+07-database-plan.md
+
+08-risk-register.md
+
+09-test-strategy.md
+
+10-rollout-plan.md
+
+11-rollback-plan.md
+
+12-definition-of-done.md
+
+13-open-questions.md
+
+14-migration-checklist.md
+
+15-next-step-recommendations.md
+
+⸻
+
+Completion Rules
+
+Do not generate implementation code.
+
+Do not modify project files.
+
+Do not create new classes.
+
+Only produce planning documents.
+
+If any uncertainty exists, document it instead of making assumptions.
+
+
+
+
+The migration plan must be detailed enough that implementation can be performed one approved step at a time with minimal risk.
+
+
+After Kiro produces these planning documents, pause and review them before starting any migration work. Once the plan is approved, you can use a much smaller implementation prompt for each individual step that references the migration plan rather than asking Kiro to rediscover the architecture each time.
